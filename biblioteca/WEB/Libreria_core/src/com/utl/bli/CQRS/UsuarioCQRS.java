@@ -6,12 +6,13 @@ package com.utl.bli.CQRS;
 
 import com.utl.bli.bd.ConexionMySQL;
 import com.utl.bli.controller.usuarioDao.UsuarioDao;
-import com.utl.bli.model.Alumno;
-import com.utl.bli.model.Usuario;
 import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.sql.Types;
+import com.utl.bli.model.Alumno;
+import com.utl.bli.model.Usuario;
+
 
 /**
  *
@@ -20,7 +21,7 @@ import java.sql.Types;
 public class UsuarioCQRS {
 
     public Usuario insert(Usuario u) throws SQLException, Exception {
-        Usuario us = new Usuario(0, "a", "a", "a",  "a", "a", false);
+        Usuario us = new Usuario(0, "a", "a", "a","a", "a", false);
         UsuarioDao usuarioDao = new UsuarioDao();
         if (u.getNombre_usuario() != null && u.getContrasenia() != null) {
             u.setRol("Cliente");
