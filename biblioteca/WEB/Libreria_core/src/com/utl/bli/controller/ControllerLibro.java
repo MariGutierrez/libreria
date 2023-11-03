@@ -1,5 +1,6 @@
 package com.utl.bli.controller;
 
+import com.utl.bli.appService.LIbrosAppService;
 import com.utl.bli.bd.ConexionMySQL;
 import com.utl.bli.model.Libro;
 import com.utl.bli.model.Universidad;
@@ -20,6 +21,17 @@ import java.util.List;
 
 /*@author Maria*/
 public class ControllerLibro {
+    
+    public Libro insertarLibro(int id_universidad, String titulo, String autor, String editorial, 
+             String idioma, String genero, int no_paginas, String libro, boolean derecho_autor ) throws SQLException, Exception {
+        
+        LIbrosAppService appLibro = new LIbrosAppService();
+        Libro lib = appLibro.registroLibro(id_universidad, titulo, autor, editorial, idioma, 
+                genero, no_paginas, libro, derecho_autor);
+        return lib;
+    }
+    
+    
     
     public void insert(Libro l) throws Exception {
         String sql = "INSERT INTO libro (id_universidad, titulo, autor, editorial, idioma, genero, no_paginas, libro, derecho_autor) VALUES (?,?,?,?,?,?,?,?,?);" ;

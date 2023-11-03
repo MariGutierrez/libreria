@@ -23,6 +23,40 @@ import org.apache.tomcat.jakartaee.commons.io.IOUtils;
 @Path("libro")
 public class RESTLibro {
     
+    @POST
+    @Produces(MediaType.APPLICATION_JSON)
+    @Path("guardar")
+    public Response save(@FormParam("id_universidad") @DefaultValue("0") int id_universidad,
+            @FormParam("titulo") @DefaultValue("") String titulo,
+            @FormParam("autor") @DefaultValue("") String autor,
+            @FormParam("editorial") @DefaultValue("") String editorial,
+            @FormParam("idioma") @DefaultValue("") String idioma,
+            @FormParam("genero") @DefaultValue("") String genero,
+            @FormParam("no_paginas") @DefaultValue("0") int no_paginas,
+            @FormParam("libro") @DefaultValue("") String libro,
+            @FormParam("derecho_autor") @DefaultValue("false") boolean derecho_autor) {
+
+        String out = null;
+        Gson gson = new Gson();
+        Libro l = null;
+        ControllerLibro ca = new ControllerLibro();
+
+        try {
+            l = ca.insertarLibro(id_universidad, titulo, autor, editorial, idioma, genero, no_paginas, libro, derecho_autor);
+            if (l == null) {           
+                out = "{\"error\": 'No insertado'}";
+            } else {
+                out = gson.toJson(l);
+            }
+        }            
+        catch (Exception e) {
+            e.printStackTrace();
+            out = "{\"exception\":\"Error interno del servidor.\"}";
+        }
+        return Response.status(Response.Status.OK).entity(out).build();
+    }
+    
+    
     @GET
     @Path("buscar")
     @Produces(MediaType.APPLICATION_JSON)
