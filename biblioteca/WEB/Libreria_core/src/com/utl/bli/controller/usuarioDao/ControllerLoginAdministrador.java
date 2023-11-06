@@ -9,6 +9,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import com.utl.bli.controller.usuarioDao.UsuarioDao;
 import com.utl.bli.viewModel.UsuarioPublicViewModel;
+import java.util.List;
 
 public class ControllerLoginAdministrador {
 
@@ -44,6 +45,16 @@ public class ControllerLoginAdministrador {
 
         UsuariosAppService cl = new UsuariosAppService();
         UsuarioPublicViewModel usu = cl.buscarPorPublic(nombre_usuario);
+        if (usu != null) {
+                return usu;
+        } else {
+            return usu;
+        }
+    }
+    public List<UsuarioPublicViewModel> buscUs_vmAll() throws Exception {
+
+        UsuariosAppService cl = new UsuariosAppService();
+        List<UsuarioPublicViewModel> usu = cl.buscarPorPublicAll();
         if (usu != null) {
                 return usu;
         } else {

@@ -14,6 +14,7 @@ import jakarta.ws.rs.Path;
 import jakarta.ws.rs.Produces;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
+import java.util.List;
 
 @Path("Busc")
 public class RESTUsuarioViewModel {
@@ -53,6 +54,30 @@ public class RESTUsuarioViewModel {
         UsuarioPublicViewModel usu;
         try {
             usu = cla.buscUs_vm(nombre_usuario);
+            if (usu != null) {
+                out = new Gson().toJson(usu);
+            } else {
+                out = "{\"error\": 'Usuario y/o contraseña incorrectos'}";
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            out = "{\"exception\":\"Error interno del servidor.\"}";
+        }
+
+        return Response.status(Response.Status.OK).entity(out).build();
+    }
+    
+    @POST
+    @Produces(MediaType.APPLICATION_JSON)
+    @Path("UVMPublicAll")
+    public Response logInPublicAll() {
+
+        String out = null;
+        Gson gson = new Gson();
+        ControllerLoginAdministrador cla = new ControllerLoginAdministrador();
+        List<UsuarioPublicViewModel> usu;
+        try {
+            usu = cla.buscUs_vmAll();
             if (usu != null) {
                 out = new Gson().toJson(usu);
             } else {

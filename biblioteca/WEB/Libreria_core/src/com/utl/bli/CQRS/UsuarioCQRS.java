@@ -24,7 +24,7 @@ public class UsuarioCQRS {
         Usuario us = new Usuario(0, "a", "a", "a","a", "a", false);
         UsuarioDao usuarioDao = new UsuarioDao();
         if (u.getNombre_usuario() != null && u.getContrasenia() != null) {
-            u.setRol("Cliente");
+            u.setRol("Usuario");
             u.setEstatus(false);
             int res = usuarioDao.insert(u);
             if (res != 0) {

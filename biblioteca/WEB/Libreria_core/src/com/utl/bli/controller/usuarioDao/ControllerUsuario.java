@@ -8,10 +8,17 @@ import com.utl.bli.CQRS.UsuarioCQRS;
 import com.utl.bli.appService.UsuariosAppService;
 import com.utl.bli.model.Usuario;
 
-public class ControllerCliente {
+public class ControllerUsuario {
     public String insertarCliente(Usuario u) throws Exception {
        UsuariosAppService ups = new UsuariosAppService();
        String res = ups.registroCliente(u);
+       return res;
+    }
+    
+    public String actuCliente(Usuario u) throws Exception {
+       UsuariosAppService ups = new UsuariosAppService();
+       String res = ups.registroCliente(u);
+       ups.reestablecerContrasenia();
        return res;
     }
 }

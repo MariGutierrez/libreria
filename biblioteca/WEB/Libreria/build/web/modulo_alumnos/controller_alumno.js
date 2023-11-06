@@ -1,4 +1,4 @@
-let alumnos = [];
+let usuarioss = [];
 let indexAlumnoSeleccionado;
 
 export function inicializar() {
@@ -7,80 +7,94 @@ export function inicializar() {
 
 export function refrescarTabla() {
     let filtro = document.getElementById("cmbFiltre").value;
-    let url = "api/alumno/getAll?filtro="+filtro;
-    fetch(url)
-        .then(response => response.json())
-        .then(data => {
-            if (data.exception != null) {
-                swal.fire('', 'Error interno del servidor. Intente nuevamente más tarde.', 'error');
-                return;
-            }
-            if (data.error != null) {
-                Swal.fire('', data.error, 'warning');
-                return;
-            }
-            if (data.errosec != null) {
-                Swal.fire('', data, errorsec, 'error');
-                window.location.replace('index.html');
-                return;
-            }
-            alumnos = data;
-            loadTable(data);
-        });
+    fetch("api/Busc/UVMPublicAll", {
+        method: "POST",
+        headers: {
+            'Content-Type': 'application/json'
+        },
+    })
+            .then(response => response.json())
+            .then(data => {
+                if (data.exception != null) {
+                    swal.fire('', 'Error interno del servidor. Intente nuevamente más tarde.', 'error');
+                    return;
+                }
+                if (data.error != null) {
+                    Swal.fire('', data.error, 'warning');
+                    return;
+                }
+                if (data.errosec != null) {
+                    Swal.fire('', data, errorsec, 'error');
+                    window.location.replace('index.html');
+                    return;
+                }
+                console.log(data);
+                usuarioss = data;
+                loadTable(data);
+            });
 }
 
 export function buscarAl() {
     let filtro = document.getElementById("txtBusquedaAl").value;
-    let url;
-    if (filtro === "")
-    {
-        url = "api/alumno/buscar?filtro=" + filtro;
-    } else
-    {
-        filtro = document.getElementById("cmbFiltre").value;
-        url = "api/alumno/getAll?filtro=" + filtro;
-    }
-    fetch(url)
-            .then(response => {
-                return response.json();
-            })
-            .then(function (data)
-            {
-                if (data.exception != null)
-                {
-                    swal.fire('', 'Error interno del servidor. Intente nuevamente más tarde.', 'Error');
+    let datos = null;
+    let params = null;
+
+    datos = {
+        nombre_usuario: filtro
+    };
+
+    params = new URLSearchParams(datos);
+
+    fetch("api/Busc/UVMPublic", {
+        method: "POST",
+        headers: {'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8'},
+        body: params
+    })
+            .then(response => response.json())
+            .then(data => {
+                if (data.exception != null) {
+                    swal.fire('', 'Error interno del servidor. Intente nuevamente más tarde.', 'error');
                     return;
                 }
-                if (data.error != null)
-                {
+                if (data.error != null) {
                     Swal.fire('', data.error, 'warning');
                     return;
                 }
-                loadTable(data);
+                if (data.errosec != null) {
+                    Swal.fire('', data, errorsec, 'error');
+                    window.location.replace('index.html');
+                    return;
+                }
+                console.log(data);
+                loadTable2(data);
             });
 }
 
 function loadTable(data) {
     let cuerpo = "";
 
-    data.forEach(function (alumno) {
+    data.forEach(function (usuario) {
         let registro =
-            '<tr data-id="' + alumno.id_alumno + '" onclick="moduloAlumno.selectAlumno(' + alumno.id_alumno + ');">' +
-            '<td>' + alumno.persona.nombre + '</td>' +
-            '<td>' + alumno.persona.primer_apellido + ' ' + alumno.persona.segundo_apellido + '</td>' +
-            '<td>' + alumno.persona.telefono + '</td>' +
-            '<td>' + alumno.usuario.nombre_usuario + '</td>' +
-            '<td>' + alumno.matricula + '</td>' +
-            '<td>' + alumno.usuario.estatus + '</td></tr>';
+                '<tr data-id="' + usuario.usrid + '" onclick="moduloAlumno.selectAlumno(' + usuario.usrid + ');">' +
+                '<td>' + usuario.usrid + '</td><td>' + usuario.usrname + '</td></tr>';
         cuerpo += registro;
     });
 
     document.getElementById("tblAlumnos").innerHTML = cuerpo;
 }
 
+function loadTable2(data) {
+
+        let registro =
+                '<tr data-id="' + data.usrid + '" onclick="moduloAlumno.selectAlumno(' + data.usrid + ');">' +
+                '<td>' + data.usrid + '</td><td>' + data.usrname + '</td></tr>';
+
+    document.getElementById("tblAlumnos").innerHTML = registro;
+}
+
 function validarAlumno(alumno) {
-    if (!alumno.persona.nombre || !alumno.persona.primer_apellido || !alumno.persona.telefono) {
-        Swal.fire('', 'Por favor, complete los campos obligatorios (nombre, primer apellido, teléfono).', 'error');
+    if (!alumno.nombre_usuario || !alumno.contrasenia) {
+        Swal.fire('', 'Por favor, complete los campos obligatorios (Correo, contraseña).', 'error');
         return false;
     }
     return true;
@@ -90,64 +104,55 @@ export function save() {
     let datos = null;
     let params = null;
 
-    let alumno = new Object();
-    alumno.usuario = new Object();
-    alumno.persona = new Object();
+    let usuario = new Object();
 
-    if (document.getElementById("id_alumno").value.trim().length < 1) {
-        alumno.id_alumno = 0;
+    if (document.getElementById("id_usuario").value.trim().length < 1) {
+        usuario.id_usuario = 0;
     } else {
-        alumno.id_alumno = parseInt(document.getElementById("id_alumno").value);
+        usuario.id_usuario = parseInt(document.getElementById("id_usuario").value);
     }
 
-    alumno.persona.nombre = document.getElementById("nombre").value;
-    alumno.persona.primer_apellido = document.getElementById("primer_apellido").value;
-    alumno.persona.segundo_apellido = document.getElementById("segundo_apellido").value;
-    alumno.persona.email = document.getElementById("email").value;
-    alumno.persona.telefono = document.getElementById("telefono").value;
-    alumno.persona.edad = parseInt(document.getElementById("edad").value);
-    alumno.persona.fecha_nacimiento = document.getElementById("fecha_nacimiento").value;
-    alumno.usuario.nombre_usuario = document.getElementById("nombre_usuario").value;
-    alumno.usuario.contrasenia = document.getElementById("contrasenia").value;
-    alumno.usuario.rol = document.getElementById("rola").value;
-    alumno.matricula = document.getElementById("matricula").value;
+    usuario.telefono = document.getElementById("telefono").value;
+    usuario.nombre_usuario = document.getElementById("nombre_usuario").value;
+    usuario.contrasenia = document.getElementById("contrasenia").value;
+    usuario.rfc = document.getElementById("rfc").value;
 
-    if (!validarAlumno(alumno)) {
+    if (!validarAlumno(usuario)) {
         return; // Detener la operación si la validación falla
     }
 
     datos = {
-        datosAlumno: JSON.stringify(alumno)
+        datosUsu: JSON.stringify(usuario)
     };
 
     params = new URLSearchParams(datos);
 
-    fetch("api/alumno/save", {
+    fetch("api/Usu/insert", {
         method: "POST",
         headers: {'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8'},
         body: params
     })
-        .then(response => response.json())
-        .then(function (data) {
-            if (data.exception != null) {
-                Swal.fire('', "Error interno del servidor. Intente nuevamente más tarde.", 'error');
-                return;
-            }
+            .then(response => response.json())
+            .then(function (data) {
+                if (data.exception != null) {
+                    Swal.fire('', "Error interno del servidor. Intente nuevamente más tarde.", 'error');
+                    return;
+                }
 
-            if (data.error != null) {
-                Swal.fire('', data.error, 'warning');
-                return;
-            }
+                if (data.error != null) {
+                    Swal.fire('', data.error, 'warning');
+                    return;
+                }
 
-            if (data.errorperm != null) {
-                Swal.fire('', "No tiene permiso para realizar esta operación", 'warning');
-                return;
-            }
+                if (data.errorperm != null) {
+                    Swal.fire('', "No tiene permiso para realizar esta operación", 'warning');
+                    return;
+                }
 
-            Swal.fire('', "Datos del alumno guardados correctamente", 'success');
-            clean();
-            refrescarTabla();
-        });
+                Swal.fire('', "Datos del alumno guardados correctamente", 'success');
+                clean();
+                refrescarTabla();
+            });
 }
 
 export function delet() {
@@ -183,31 +188,31 @@ export function delet() {
         headers: {'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8'},
         body: params
     })
-        .then(response => response.json())
-        .then(function (data) {
-            if (data.exception != null) {
-                Swal.fire('', "Error interno del servidor. Intente nuevamente más tarde.", 'error');
-                return;
-            }
+            .then(response => response.json())
+            .then(function (data) {
+                if (data.exception != null) {
+                    Swal.fire('', "Error interno del servidor. Intente nuevamente más tarde.", 'error');
+                    return;
+                }
 
-            if (data.error != null) {
-                Swal.fire('', data.error, 'warning');
-                return;
-            }
+                if (data.error != null) {
+                    Swal.fire('', data.error, 'warning');
+                    return;
+                }
 
-            if (data.errorperm != null) {
-                Swal.fire('', "No tiene permiso para realizar esta operación", 'warning');
-                return;
-            }
+                if (data.errorperm != null) {
+                    Swal.fire('', "No tiene permiso para realizar esta operación", 'warning');
+                    return;
+                }
 
-            Swal.fire('', "Datos del alumno eliminados correctamente", 'success');
-            refrescarTabla();
-            clean();
-        });
+                Swal.fire('', "Datos del alumno eliminados correctamente", 'success');
+                refrescarTabla();
+                clean();
+            });
 }
 
 export function selectAlumno(id_alumno) {
-    const alumnoSeleccionado = alumnos.find(alumno => alumno.id_alumno === id_alumno);
+    const alumnoSeleccionado = usuarioss.find(alumno => alumno.id_alumno === id_alumno);
 
     if (alumnoSeleccionado) {
         document.getElementById("id_alumno").value = alumnoSeleccionado.id_alumno;
