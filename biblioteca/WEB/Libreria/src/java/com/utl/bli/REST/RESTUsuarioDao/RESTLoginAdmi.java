@@ -31,17 +31,13 @@ public class RESTLoginAdmi {
         try {
             usu = cla.login(nombre_usuario, contrasenia);
             if (usu.equals("0")) {
-                out = "{\"error\": 'Usuario incorrecto'}";
+                out = "{\"error\": \"Usuario incorrecto\"}";
+            } else if (usu.equals("1")) {
+                out = "{\"error\": \"Contraseña incorrecta\"}";
+            } else if (usu.equals("Administrador")) {
+                out = "{\"Rol\": \"" + usu + "\"}";
             } else {
-                if (usu.equals("1")) {
-                    out = "{\"Error\":'Contraseña incorrecta'}";
-                } else {
-                    if (usu.equals("Administrador")) {
-                        out = "{\"Rol\": '" + usu + "'}";
-                    } else {
-                        out = "{\"Error2\": 'Tipo de usuario incorrecto'}";
-                    }
-                }
+                out = "{\"error\": \"Tipo de usuario incorrecto\"}";
             }
         } catch (Exception e) {
             e.printStackTrace();

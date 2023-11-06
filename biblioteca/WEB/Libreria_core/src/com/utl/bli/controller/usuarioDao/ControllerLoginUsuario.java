@@ -8,7 +8,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-public class ControllerLoginCliente {
+public class ControllerLoginUsuario {
 
     public String login(String nombre_usuario, String contrasenia) throws Exception {
         UsuarioDao usuarioDao = new UsuarioDao();
