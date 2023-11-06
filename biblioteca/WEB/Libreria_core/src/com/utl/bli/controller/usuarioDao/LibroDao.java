@@ -6,6 +6,10 @@ import com.utl.bli.model.Universidad;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
 
 /*@author maria */
 public class LibroDao {
@@ -34,7 +38,86 @@ public class LibroDao {
         return l;
     }
     
-     private Libro fill(ResultSet rs) throws Exception {
+    /*public Libro buscar(String filtro) throws Exception {
+        String sql = "SELECT l.*, u.id_universidad, u.nombre_universidad, u.pais FROM libro l INNER JOIN universidad u ON l.id_universidad = u.id_universidad WHERE titulo LIKE '%"+filtro+"%'";
+        ConexionMySQL connMySQL = new ConexionMySQL();
+        Connection conn = connMySQL.open();
+        PreparedStatement pstmt = conn.prepareStatement(sql);
+        ResultSet rs = pstmt.executeQuery();
+
+        Libro libros = null;
+
+        while (rs.next()) {
+            libros = fill(rs);
+        }
+
+        rs.close();
+        pstmt.close();
+        connMySQL.close();
+
+        return libros;
+    }*/
+    
+    public List<Libro> buscar(String filtro) throws SQLException, Exception{
+        String sql = "SELECT l.*, u.id_universidad, u.nombre_universidad, u.pais FROM libro l INNER JOIN universidad u ON l.id_universidad = u.id_universidad WHERE titulo LIKE '%"+filtro+"%'";
+        ConexionMySQL connMySQL = new ConexionMySQL();
+        Connection conn = connMySQL.open();
+        PreparedStatement pstmt = conn.prepareStatement(sql);
+        ResultSet rs = pstmt.executeQuery();
+
+        List<Libro> libros = new ArrayList<>();
+
+        while (rs.next()) {
+            libros.add(fill(rs));
+        }
+
+        rs.close();
+        pstmt.close();
+        connMySQL.close();
+
+        return libros;
+    }
+    
+    public List<Libro> getAll(String filtro) throws Exception {
+        String sql = "SELECT l.*, u.id_universidad, u.nombre_universidad, u.pais FROM libro l INNER JOIN universidad u ON l.id_universidad = u.id_universidad WHERE l.estatus ="+filtro;
+        ConexionMySQL connMySQL = new ConexionMySQL();
+        Connection conn = connMySQL.open();
+        PreparedStatement pstmt = conn.prepareStatement(sql);
+        ResultSet rs = pstmt.executeQuery(); 
+        List<Libro> libros = new ArrayList<>();
+
+        while (rs.next()) {
+            libros.add(fill(rs));
+        }
+
+        rs.close();
+        pstmt.close();
+        connMySQL.close();
+
+        return libros;
+    }
+    
+        
+    public Libro update(Libro l) throws SQLException {
+
+        String sql = "UPDATE usuario SET libro = ? WHERE id_usuario = " + l.getId_libro();
+        
+        ConexionMySQL connMySQL = new ConexionMySQL();
+        Connection conn = connMySQL.open();
+        
+        PreparedStatement ps = conn.prepareStatement(sql);  
+
+        ps.setString(1, l.getLibro());
+        
+        ps.execute();
+
+        ps.close();
+        connMySQL.close();
+        
+        return l;
+    }
+
+    private Libro fill(ResultSet rs) throws Exception {
         Libro l = new Libro();
         
         l.setId_libro(rs.getInt("id_libro"));

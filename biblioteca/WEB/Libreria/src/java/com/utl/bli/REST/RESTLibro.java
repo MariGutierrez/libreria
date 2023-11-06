@@ -21,8 +21,7 @@ import org.apache.tomcat.jakartaee.commons.io.IOUtils;
 
 /*@author maria*/
 @Path("libro")
-public class RESTLibro {
-    
+public class RESTLibro {    
     @POST
     @Produces(MediaType.APPLICATION_JSON)
     @Path("guardar")
@@ -57,11 +56,30 @@ public class RESTLibro {
     }
     
     
-    @GET
+    /*@GET
     @Path("buscar")
     @Produces(MediaType.APPLICATION_JSON)
     public Response buscar(@QueryParam("filtro") @DefaultValue("") String filtro) {
 
+        String out = null;
+        ControllerLibro cl = null;
+        Libro l = null;
+
+        try {
+            cl = new ControllerLibro();
+            l = cl.buscar(filtro);
+            out = new Gson().toJson(l);
+        } catch (Exception e) {
+            e.printStackTrace();
+            out = "{\"exception\":\"Error interno del servidor.\"}";
+        }
+        return Response.status(Response.Status.OK).entity(out).build();
+    }*/
+    
+    @GET
+    @Path("buscar")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response buscar(@QueryParam("filtro") @DefaultValue("") String filtro) {
         String out = null;
         ControllerLibro cl = null;
         List<Libro> libros = null;
@@ -75,7 +93,9 @@ public class RESTLibro {
             out = "{\"exception\":\"Error interno del servidor.\"}";
         }
         return Response.status(Response.Status.OK).entity(out).build();
-    }
+    } 
+    
+ 
     
     @GET
     @Path("getAll")
@@ -95,35 +115,6 @@ public class RESTLibro {
         }
         return Response.status(Response.Status.OK).entity(out).build();
     } 
-    
-    @Path("save")
-    @Produces(MediaType.APPLICATION_JSON)
-    @POST      
-    public Response save(@FormParam("datosLibro") @DefaultValue("") String datosLibro) {
-        
-        String out = null;
-        Gson gson = new Gson();
-        Libro li = null;
-        ControllerLibro cl = new ControllerLibro();
-
-        try {
-            li = gson.fromJson(datosLibro, Libro.class);
-            int id = li.getId_libro();
-            System.out.println(id);
-            if (id<=0) {
-                cl.insert(li);
-            } else {
-                cl.update(li);
-            }            
-            out = gson.toJson(li);
-        } catch (Exception e) {
-                e.printStackTrace();
-                out = """
-                      {"result":"error"}
-                      """;
-            }
-        return Response.status(Response.Status.OK).entity(out).build();
-    }
     
     
     @POST

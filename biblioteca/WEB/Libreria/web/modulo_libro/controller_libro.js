@@ -53,14 +53,12 @@ export function loadTable(data) {
 export function buscar() {
     let filtro = document.getElementById("txtBusquedaLibro").value;
     let url;
-    if(filtro==="")
-    {
-    url = "api/libro/buscar?filtro=" + filtro;
+    if(filtro===""){
+        url = "api/libro/buscar?filtro=" + filtro;
     }
-    else
-    {
-     filtro = document.getElementById("cmbFiltro").value;   
-     url = "api/libro/getAll?filtro=" + filtro;   
+    else{
+        filtro = document.getElementById("cmbFiltro").value;   
+        url = "api/libro/getAll?filtro=" + filtro;   
     }
     fetch(url)
             .then(response => {
@@ -176,15 +174,12 @@ export function mostrarDetalle(id) {
             //     getImageFormat(fotoB64) + ";base64," + libro.id_libro;
               mostrarPDFDesdeBase64();
               refrescarTabla();
-              
-             
          
         }
     });
 
     //document.getElementById("btnDelete").classList.remove("disabled");
 }
-
 
 export function clean() {
     document.getElementById("titulo").value = " ";
@@ -245,8 +240,6 @@ export function deleteLibro() {
                 clean();
             });
 }
-
-
 
 export function askDelete() {
     Swal.fire({
@@ -322,7 +315,6 @@ function cargarFotografia(objetoInputFile) {
     }
 }
 
-
 export function getImageFormat(strb64) {
     let fc = strb64 != null && strb64.length > 0 ? strb64.subtr(0, 1) : "";
 
@@ -351,7 +343,6 @@ function mostrarPDFDesdeBase64() {
     var bin = atob(b64);
     console.log('File Size:', Math.round(bin.length / 1024), 'KB');
     console.log('PDF Version:', bin.match(/^.PDF-([0-9.]+)/)[1]);
-    
     
     document.getElementById("imgFoto").src = 'data:application/pdf;base64,' + b64;
     
