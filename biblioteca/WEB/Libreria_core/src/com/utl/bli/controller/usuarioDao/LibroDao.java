@@ -38,6 +38,33 @@ public class LibroDao {
         return l;
     }
     
+    public Libro update(Libro l) throws Exception {
+        String sql = "UPDATE libro SET id_universidad=?, titulo=?, autor=?, editorial=?, idioma=?, genero=?, no_paginas=?, libro=?, derecho_autor=? WHERE id_libro=?;";
+
+        ConexionMySQL connMySQL = new ConexionMySQL();
+        Connection conn = connMySQL.open();
+
+        PreparedStatement ps = conn.prepareStatement(sql);
+
+        ps.setInt(1, l.getUniversidad().getId_universidad());
+        ps.setString(2, l.getTitulo());
+        ps.setString(3, l.getAutor());
+        ps.setString(4, l.getEditorial());
+        ps.setString(5, l.getIdioma());
+        ps.setString(6, l.getGenero());
+        ps.setInt(7, l.getNo_paginas());
+        ps.setString(8, l.getLibro());
+        ps.setBoolean(9, l.isDerecho_autor());
+        ps.setInt(10, l.getId_libro()); 
+        ps.executeUpdate();
+
+        // Cerrar la conexión
+        ps.close();
+        connMySQL.close();
+
+        return l;
+    }
+
     /*public Libro buscar(String filtro) throws Exception {
         String sql = "SELECT l.*, u.id_universidad, u.nombre_universidad, u.pais FROM libro l INNER JOIN universidad u ON l.id_universidad = u.id_universidad WHERE titulo LIKE '%"+filtro+"%'";
         ConexionMySQL connMySQL = new ConexionMySQL();
@@ -98,9 +125,9 @@ public class LibroDao {
     }
     
         
-    public Libro update(Libro l) throws SQLException {
+    public Libro up(Libro l) throws SQLException {
 
-        String sql = "UPDATE usuario SET libro = ? WHERE id_usuario = " + l.getId_libro();
+        String sql = "UPDATE libro SET libro = ? WHERE id_libro = " + l.getId_libro();
         
         ConexionMySQL connMySQL = new ConexionMySQL();
         Connection conn = connMySQL.open();

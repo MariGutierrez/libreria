@@ -28,4 +28,39 @@ public class LIbrosAppService {
         
         return lib;
     }
+    
+    public Libro actualizarLibro(int id_universidad, String titulo, String autor, String editorial, 
+             String idioma, String genero, int no_paginas, String libro, boolean derecho_autor, int id_libro) throws Exception{
+        
+        Libro nuevoLibro = new Libro();
+        Universidad universidad = new Universidad(); 
+        universidad.setId_universidad(id_universidad);
+        nuevoLibro.setUniversidad(universidad); 
+        nuevoLibro.setTitulo(titulo);
+        nuevoLibro.setAutor(autor);
+        nuevoLibro.setEditorial(editorial);
+        nuevoLibro.setIdioma(idioma);
+        nuevoLibro.setGenero(genero);
+        nuevoLibro.setNo_paginas(no_paginas);
+        nuevoLibro.setLibro(libro);
+        nuevoLibro.setDerecho_autor(derecho_autor);
+        nuevoLibro.setId_libro(id_libro);
+
+        LibroCQRS cqrs = new LibroCQRS();
+        Libro lib = cqrs.modificarLibro(nuevoLibro);
+        
+        return lib;
+    }
+    
+    
+
+    
+    public Libro update (Libro l) throws Exception {
+        
+        LibroCQRS cqrs = new LibroCQRS();
+        Libro lib = cqrs.actualizar(l);
+        
+        return lib;       
+    }
+
 }

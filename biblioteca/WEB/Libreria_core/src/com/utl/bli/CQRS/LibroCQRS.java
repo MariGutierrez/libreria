@@ -2,6 +2,7 @@ package com.utl.bli.CQRS;
 
 import com.utl.bli.controller.usuarioDao.LibroDao;
 import com.utl.bli.model.Libro;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -15,6 +16,17 @@ public class LibroCQRS {
         l.setEstatus(true);     
           
         li = libDao.insert(l);
+        
+        return li;
+    }
+    
+    public Libro modificarLibro(Libro l) throws Exception {
+        Libro li = new Libro();        
+        LibroDao libDao = new LibroDao();   
+        
+        l.setEstatus(true);     
+          
+        li = libDao.update(l);
         
         return li;
     }
@@ -39,6 +51,34 @@ public class LibroCQRS {
         return libDao.getAll(filtro);
     }
     
+    public Libro up(Libro l) throws SQLException{
+        
+        LibroDao libDao = new LibroDao();
+        if (l.getTitulo()!= null && l.getLibro() != null) {
+           return libDao.up(l);
+        }
+        return null;
+    }
+    
+    public Libro actualizar(Libro l) throws Exception{
+    
+        Libro li = new Libro();        
+        LibroDao libDao = new LibroDao();
+        
+        if (l.getTitulo() != null) {
+            
+            li = (Libro) libDao.buscar(l.getTitulo());
+            
+            if(!li.getLibro().equals(l.getLibro())){                
+                li = libDao.update(l);
+            }            
+            
+        } else {
+          throw new Exception("El libro es incorrecto");
+          }
+        return li;
+    }
+  
 }
 
 

@@ -33,7 +33,8 @@ public class RESTLibro {
             @FormParam("genero") @DefaultValue("") String genero,
             @FormParam("no_paginas") @DefaultValue("0") int no_paginas,
             @FormParam("libro") @DefaultValue("") String libro,
-            @FormParam("derecho_autor") @DefaultValue("false") boolean derecho_autor) {
+            @FormParam("derecho_autor") @DefaultValue("false") boolean derecho_autor,
+            @FormParam("id_libro") @DefaultValue("0") int id_libro) {
 
         String out = null;
         Gson gson = new Gson();
@@ -41,7 +42,11 @@ public class RESTLibro {
         ControllerLibro ca = new ControllerLibro();
 
         try {
-            l = ca.insertarLibro(id_universidad, titulo, autor, editorial, idioma, genero, no_paginas, libro, derecho_autor);
+            if (id_libro == 0) {
+                l = ca.insertarLibro(id_universidad, titulo, autor, editorial, idioma, genero, no_paginas, libro, derecho_autor);
+            } else {
+                l = ca.actualizarLibro(id_universidad, titulo, autor, editorial, idioma, genero, no_paginas, libro, derecho_autor, id_libro);
+            }
             if (l == null) {           
                 out = "{\"error\": 'No insertado'}";
             } else {
@@ -54,7 +59,7 @@ public class RESTLibro {
         }
         return Response.status(Response.Status.OK).entity(out).build();
     }
-    
+
     
     /*@GET
     @Path("buscar")

@@ -32,6 +32,15 @@ public class ControllerLibro {
         return lib;
     }
     
+    public Libro actualizarLibro(int id_universidad, String titulo, String autor, String editorial, 
+             String idioma, String genero, int no_paginas, String libro, boolean derecho_autor, int id_libro ) throws SQLException, Exception {
+        
+        LIbrosAppService appLibro = new LIbrosAppService();
+        Libro lib = appLibro.actualizarLibro(id_universidad, titulo, autor, editorial, idioma, 
+                genero, no_paginas, libro, derecho_autor, id_libro);
+        return lib;
+    }
+    
     /*public Libro buscar(String filtro) throws Exception {
         LibroCQRS lib = new LibroCQRS();
         Libro li = lib.buscarLibro(filtro);
@@ -54,6 +63,12 @@ public class ControllerLibro {
         return lib.getAll(filtro);
     }
     
+    public Libro update(Libro l ) throws SQLException, Exception {
+        
+        LIbrosAppService appLibro = new LIbrosAppService();
+        Libro lib = appLibro.update(l);
+        return lib;
+    }
     
     
     public void delete(int id) throws Exception {

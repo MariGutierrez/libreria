@@ -113,7 +113,8 @@ export function save() {
         genero : libro.genero,
         no_paginas : libro.no_paginas,
         libro : libro.libro,
-        derecho_autor : libro.derecho_autor    
+        derecho_autor : libro.derecho_autor,
+        id_libro : libro.id_libro
     };
     
     params = new URLSearchParams(datos);
@@ -143,12 +144,21 @@ export function save() {
                     Swal.fire('', "No tiene permiso para realizar esta operacion", 'warning');
                     return;
                 }
-                Swal.fire('', "Registro de libro exitoso", 'success');
-                refrescarTabla();
-                clean();
+                if (libro.id_libro > 0) {
+                    Swal.fire('', "Registro actualizado correctamente", 'success');
+                    refrescarTabla();
+                    clean();
+                } else {
+                    Swal.fire('', "Registro de libro exitoso", 'success');
+                    refrescarTabla();
+                    clean();
+                }
+                
             });
 
 }
+
+
 
 export function mostrarDetalle(id) {
     libros.forEach(function (libro){
