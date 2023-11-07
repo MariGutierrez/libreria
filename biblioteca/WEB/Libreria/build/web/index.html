@@ -10,28 +10,28 @@
         <link href="styles/css/sweetalert2.css" rel="stylesheet"/>
         <link href="styles/css/bootstrap.min.css" rel="stylesheet"/>
 
-        <style>
-            #abrirLogin {
-                position: absolute;
-                top: 10px;
-                right: 10px;
-            }
 
-        </style>
     </head>
     <body style="background-image: url('resources/libo.jpg'); background-size: 100%; background-repeat: no-repeat;">
-        <div class="container">
-            <button id="abrirLogin"><img src="resources/iniciar-sesion.png" alt=""/>Iniciar sesión</button>   
-            <button id="abrirLogin2"><img src="resources/iniciar-sesion.png" alt=""/>Iniciar sesión Administracion</button>   
+        <div class="container d-flex justify-content-center align-items-center vh-100">
+            <button id="abrirLogin" class="m-5 btn btn-outline-dark" style="font-size: 16px;">
+                <img src="resources/iniciar-sesion.png" alt="" style="max-width: 50px; max-height: 50px;">
+                Iniciar sesión Alumnos
+            </button>
+
+            <button id="abrirLogin2" class="m-5 btn btn-outline-dark" style="font-size: 16px;">
+                <img src="resources/iniciar-sesion.png" alt="" style="max-width: 50px; max-height: 50px;">
+                Iniciar sesión Administración
+            </button>
             <div class="d-flex justify-content-center align-items-center vh-100" style="align-content: center">
-                <div class="row justify-content-center">
+                <div class="row justify-content-center d-none">
                     <div class="col-md-12" style="width: 1100px" id="contPrincipal">
                         <button id="btnBuscarB" class="btn btn-outline-secondary col-md-12" onclick="cargarModuloBuscarLibroB();">Buscar</button>   
                     </div>
                 </div>
             </div>
         </div>
-        
+
 
         <section class="modal" id="login">
             <div class="modal-dialog">
@@ -58,8 +58,8 @@
                 </div>            
             </div>
         </section>
-        
-        
+
+
         <section class="modal" id="login2">
             <div class="modal-dialog">
                 <div class="modal-content" style="border-radius: 30px; box-shadow: 0 0 10px rgba(0,0,0,0.5);">

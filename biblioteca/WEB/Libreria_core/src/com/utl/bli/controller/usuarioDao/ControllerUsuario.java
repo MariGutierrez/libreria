@@ -46,6 +46,7 @@ public class ControllerUsuario {
             return usu;
         }
     }
+    
     public List<UsuarioPublicViewModel> buscUs_vmAll() throws Exception {
 
         UsuariosAppService cl = new UsuariosAppService();
