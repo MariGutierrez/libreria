@@ -31,13 +31,6 @@ public class LibroCQRS {
         return li;
     }
     
-    
-    /*public Libro buscarLibro(String filtro) throws Exception{
-        LibroDao libDao = new LibroDao();  
-        Libro li = libDao.buscar(filtro);
-        return li;    
-    }*/
-    
     public List<Libro> buscarLibro2(String filtro) throws Exception {
         LibroDao libDao = new LibroDao();
         
@@ -49,15 +42,6 @@ public class LibroCQRS {
         LibroDao libDao = new LibroDao();
         
         return libDao.getAll(filtro);
-    }
-    
-    public Libro up(Libro l) throws SQLException{
-        
-        LibroDao libDao = new LibroDao();
-        if (l.getTitulo()!= null && l.getLibro() != null) {
-           return libDao.up(l);
-        }
-        return null;
     }
     
     public Libro actualizar(Libro l) throws Exception{

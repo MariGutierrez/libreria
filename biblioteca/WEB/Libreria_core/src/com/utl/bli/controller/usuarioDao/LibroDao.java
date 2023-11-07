@@ -124,26 +124,6 @@ public class LibroDao {
         return libros;
     }
     
-        
-    public Libro up(Libro l) throws SQLException {
-
-        String sql = "UPDATE libro SET libro = ? WHERE id_libro = " + l.getId_libro();
-        
-        ConexionMySQL connMySQL = new ConexionMySQL();
-        Connection conn = connMySQL.open();
-        
-        PreparedStatement ps = conn.prepareStatement(sql);  
-
-        ps.setString(1, l.getLibro());
-        
-        ps.execute();
-
-        ps.close();
-        connMySQL.close();
-        
-        return l;
-    }
-
     private Libro fill(ResultSet rs) throws Exception {
         Libro l = new Libro();
         
