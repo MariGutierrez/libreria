@@ -5,6 +5,7 @@ import com.utl.bli.appService.LIbrosAppService;
 import com.utl.bli.bd.ConexionMySQL;
 import com.utl.bli.model.Libro;
 import com.utl.bli.model.Universidad;
+import com.utl.bli.viewModel.LibroPublicViewModel;
 import java.io.ByteArrayInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -22,6 +23,17 @@ import java.util.List;
 
 /*@author Maria*/
 public class ControllerLibro {
+    
+    public List<LibroPublicViewModel> buscLib_vmAll(String nombre_libro) throws Exception {
+
+        LIbrosAppService laps = new LIbrosAppService();
+        List<LibroPublicViewModel> lib = laps.buscarPorPublic(nombre_libro);
+        if (lib != null) {
+                return lib;
+        } else {
+            return lib;
+        }
+    }
     
     public Libro insertarLibro(int id_universidad, String titulo, String autor, String editorial, 
              String idioma, String genero, int no_paginas, String libro, boolean derecho_autor ) throws SQLException, Exception {

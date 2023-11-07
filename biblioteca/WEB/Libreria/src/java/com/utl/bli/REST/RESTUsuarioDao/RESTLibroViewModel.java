@@ -2,8 +2,8 @@
 package com.utl.bli.REST.RESTUsuarioDao;
 
 import com.google.gson.Gson;
-import com.utl.bli.controller.usuarioDao.ControllerLibro;
-import com.utl.bli.controller.usuarioDao.ControllerUsuario;
+import com.utl.bli.controller.ControllerLibro;
+import com.utl.bli.controller.ControllerUsuario;
 import com.utl.bli.viewModel.LibroPublicViewModel;
 import com.utl.bli.viewModel.UsuarioPublicViewModel;
 import jakarta.ws.rs.DefaultValue;

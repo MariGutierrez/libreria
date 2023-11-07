@@ -1,7 +1,7 @@
 package com.utl.bli.REST.RESTUsuarioDao;
 
 import com.google.gson.Gson;
-import com.utl.bli.controller.usuarioDao.ControllerLoginUsuario;
+import com.utl.bli.controller.ControllerLoginUsuario;
 import com.utl.bli.model.Usuario;
 import jakarta.ws.rs.DefaultValue;
 import jakarta.ws.rs.FormParam;
