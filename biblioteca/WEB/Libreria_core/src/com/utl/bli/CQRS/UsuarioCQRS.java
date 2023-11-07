@@ -37,6 +37,22 @@ public class UsuarioCQRS {
             throw new Exception("El uuario y la cntraseña no deben estar vacios");
         }
     }
+    
+    public Usuario update(Usuario u) throws SQLException, Exception {
+        Usuario us = new Usuario(0, "a", "a", "a","a", "a", false);
+        UsuarioDao usuarioDao = new UsuarioDao();
+        if (u.getNombre_usuario() != null && u.getContrasenia() != null) {
+            int res = usuarioDao.update(u);
+            if (res != 0) {
+                u.setId_usuario(res);
+                return u;
+            } else {
+                return us;
+            }
+        } else {
+            throw new Exception("El uuario y la cntraseña no deben estar vacios");
+        }
+    }
 
     public void reestablecerContrasenia(Usuario u) throws Exception {
         UsuarioDao usuarioDao = new UsuarioDao();

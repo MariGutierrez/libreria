@@ -3,7 +3,7 @@ package com.utl.bli.REST.RESTUsuarioDao;
 import com.google.gson.Gson;
 import com.utl.bli.appService.UsuariosAppService;
 import com.utl.bli.controller.ControllerLogin;
-import com.utl.bli.controller.usuarioDao.ControllerLoginAdministrador;
+import com.utl.bli.controller.usuarioDao.ControllerUsuario;
 import com.utl.bli.controller.usuarioDao.ControllerLoginVendedor;
 import com.utl.bli.model.Usuario;
 import com.utl.bli.viewModel.UsuarioPublicViewModel;
@@ -26,10 +26,10 @@ public class RESTUsuarioViewModel {
 
         String out = null;
         Gson gson = new Gson();
-        ControllerLoginAdministrador cla = new ControllerLoginAdministrador();
+        ControllerUsuario cU = new ControllerUsuario();
         Usuario usu;
         try {
-            usu = cla.buscUs(nombre_usuario);
+            usu = cU.buscUs(nombre_usuario);
             if (usu != null) {
                 out = new Gson().toJson(usu);
             } else {
@@ -50,10 +50,10 @@ public class RESTUsuarioViewModel {
 
         String out = null;
         Gson gson = new Gson();
-        ControllerLoginAdministrador cla = new ControllerLoginAdministrador();
+        ControllerUsuario cu = new ControllerUsuario();
         UsuarioPublicViewModel usu;
         try {
-            usu = cla.buscUs_vm(nombre_usuario);
+            usu = cu.buscUs_vm(nombre_usuario);
             if (usu != null) {
                 out = new Gson().toJson(usu);
             } else {
@@ -74,10 +74,10 @@ public class RESTUsuarioViewModel {
 
         String out = null;
         Gson gson = new Gson();
-        ControllerLoginAdministrador cla = new ControllerLoginAdministrador();
+        ControllerUsuario cu = new ControllerUsuario();
         List<UsuarioPublicViewModel> usu;
         try {
-            usu = cla.buscUs_vmAll();
+            usu = cu.buscUs_vmAll();
             if (usu != null) {
                 out = new Gson().toJson(usu);
             } else {

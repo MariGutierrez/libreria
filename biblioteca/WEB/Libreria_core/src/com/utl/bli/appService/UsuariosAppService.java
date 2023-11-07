@@ -9,12 +9,24 @@ import java.util.List;
 
 public class UsuariosAppService {
 
-    public String registroCliente(Usuario u) throws Exception {
+    public String registroUsuario(Usuario u) throws Exception {
         UsuarioCQRS cqrs = new UsuarioCQRS();
         Usuario us = cqrs.insert(u);
         EmailService es = new EmailService();
         if (us.getId_usuario() != 0) {
             es.email(us.getNombre_usuario(), "Confirma tu cuenta");
+            return "1";
+        } else {
+            return "0";
+        }
+    }
+    
+    public String upUsuario (Usuario u) throws Exception {
+        UsuarioCQRS cqrs = new UsuarioCQRS();
+        Usuario us = cqrs.update(u);
+        EmailService es = new EmailService();
+        if (us.getId_usuario() != 0) {
+            es.email(us.getNombre_usuario(), "Confirma los cambios en tu cuenta");
             return "1";
         } else {
             return "0";

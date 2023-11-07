@@ -32,7 +32,7 @@ public class RESTUsuario {
 
         try {
             usu = gson.fromJson(datoUsu, Usuario.class);
-            String res = ca.insertarCliente(usu);
+            String res = ca.insertarUsuario(usu);
             if (res.equals("0")) {
                 out = "{\"error\": 'Ha faltado alguno de los campos'}";
             } else {
@@ -59,7 +59,7 @@ public class RESTUsuario {
 
         try {
             usu = gson.fromJson(datoUsu, Usuario.class);
-            String res = ca.insertarCliente(usu);
+            String res = ca.actuUsuario(usu);
             if (res.equals("0")) {
                 out = "{\"error\": 'Ha faltado alguno de los campos'}";
             } else {
