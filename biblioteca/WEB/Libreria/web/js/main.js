@@ -40,28 +40,6 @@ function ingresar() {
             });
 }
 
-function ingresarA() {
-
-    let usuario = document.getElementById("usuario2").value;
-    let contrasenia = document.getElementById("contrasena2").value;
-
-    let parametros = new URLSearchParams({usuario: usuario, contrasenia: contrasenia});
-    console.log(parametros);
-
-
-    fetch("api/Busc/Adm",
-            {
-                method: 'POST',
-                headers: {'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8'},
-                body: parametros
-
-            }).then(response => response.json())
-            .then(data => {
-//                console.log(data);
-                window.location.href = 'inicio.html';
-            });
-}
-
 let moduloUniversidad;
 function cargarModuloUniversidad() {
     fetch("modulo_universidad/view_universidad.html")

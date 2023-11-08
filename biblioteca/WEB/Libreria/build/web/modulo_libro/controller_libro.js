@@ -91,6 +91,8 @@ export function save() {
         libro.id_libro = 0;
     } else {
         libro.id_libro = parseInt(document.getElementById("txtIdLibro").value);
+            document.getElementById("btnUp").classList.add("disabled");
+            document.getElementById("btnAdd").classList.remove("disabled");
     }
 
     libro.universidad.id_universidad = (1);
@@ -188,7 +190,8 @@ export function mostrarDetalle(id) {
         }
     });
 
-    //document.getElementById("btnDelete").classList.remove("disabled");
+    document.getElementById("btnUp").classList.remove("disabled");
+    document.getElementById("btnAdd").classList.add("disabled");
 }
 
 export function clean() {
@@ -209,7 +212,10 @@ export function clean() {
     document.getElementById("idioma").disabled = false;
     document.getElementById("genero").disabled = false;
     document.getElementById("num").disabled = false;
-    document.getElementById("cmbDerecho").disabled = false;            
+    document.getElementById("cmbDerecho").disabled = false; 
+    
+    document.getElementById("btnAdd").classList.remove("disabled");
+    document.getElementById("btnUp").classList.add("disabled");
 }
 
 //Eliminar

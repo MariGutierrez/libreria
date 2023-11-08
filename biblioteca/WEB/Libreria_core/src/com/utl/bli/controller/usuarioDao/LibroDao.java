@@ -64,26 +64,6 @@ public class LibroDao {
 
         return l;
     }
-
-    /*public Libro buscar(String filtro) throws Exception {
-        String sql = "SELECT l.*, u.id_universidad, u.nombre_universidad, u.pais FROM libro l INNER JOIN universidad u ON l.id_universidad = u.id_universidad WHERE titulo LIKE '%"+filtro+"%'";
-        ConexionMySQL connMySQL = new ConexionMySQL();
-        Connection conn = connMySQL.open();
-        PreparedStatement pstmt = conn.prepareStatement(sql);
-        ResultSet rs = pstmt.executeQuery();
-
-        Libro libros = null;
-
-        while (rs.next()) {
-            libros = fill(rs);
-        }
-
-        rs.close();
-        pstmt.close();
-        connMySQL.close();
-
-        return libros;
-    }*/
     
     public List<Libro> buscar(String filtro) throws SQLException, Exception{
         String sql = "SELECT l.*, u.id_universidad, u.nombre_universidad, u.pais FROM libro l INNER JOIN universidad u ON l.id_universidad = u.id_universidad WHERE titulo LIKE '%"+filtro+"%'";

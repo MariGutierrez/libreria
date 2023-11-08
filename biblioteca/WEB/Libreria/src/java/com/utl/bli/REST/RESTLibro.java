@@ -59,27 +59,6 @@ public class RESTLibro {
         }
         return Response.status(Response.Status.OK).entity(out).build();
     }
-
-    
-    /*@GET
-    @Path("buscar")
-    @Produces(MediaType.APPLICATION_JSON)
-    public Response buscar(@QueryParam("filtro") @DefaultValue("") String filtro) {
-
-        String out = null;
-        ControllerLibro cl = null;
-        Libro l = null;
-
-        try {
-            cl = new ControllerLibro();
-            l = cl.buscar(filtro);
-            out = new Gson().toJson(l);
-        } catch (Exception e) {
-            e.printStackTrace();
-            out = "{\"exception\":\"Error interno del servidor.\"}";
-        }
-        return Response.status(Response.Status.OK).entity(out).build();
-    }*/
     
     @GET
     @Path("buscar")
@@ -120,37 +99,6 @@ public class RESTLibro {
         }
         return Response.status(Response.Status.OK).entity(out).build();
     } 
-    
-    
-    @POST
-    @Path("delete")
-    @Produces(MediaType.APPLICATION_JSON)
-    public Response delete(@FormParam("datosLibro") @DefaultValue("") String datosLibro) {
-
-        String out = null;
-        Gson gson = new Gson();
-        Libro l = null;
-        ControllerLibro cl = new ControllerLibro();
-
-        try {
-           // l = gson.fromJson(datosLibro, Libro.class);
-            cl.delete(Integer.parseInt(datosLibro));
-            out = gson.toJson(l);
-        } catch (JsonParseException jpe) {
-            jpe.printStackTrace();
-            out = """
-                  {"exception":"Formato JSON de Datos incorrecto."}
-                  """;
-        } catch (Exception e) {
-            e.printStackTrace();
-            out = """
-                  {"exception":"%s"}
-                  """;
-            out = String.format(out, e.toString());
-        }
-        return Response.status(Response.Status.OK).entity(out).build();
-
-    }
 }
 
 

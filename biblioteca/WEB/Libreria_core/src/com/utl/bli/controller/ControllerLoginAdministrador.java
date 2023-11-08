@@ -1,4 +1,4 @@
-package com.utl.bli.controller.usuarioDao;
+package com.utl.bli.controller;
 
 import com.utl.bli.appService.UsuariosAppService;
 import com.utl.bli.bd.ConexionMySQL;
@@ -7,6 +7,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import com.utl.bli.controller.usuarioDao.UsuarioDao;
 import com.utl.bli.controller.usuarioDao.UsuarioDao;
 import com.utl.bli.viewModel.UsuarioPublicViewModel;
 import java.util.List;

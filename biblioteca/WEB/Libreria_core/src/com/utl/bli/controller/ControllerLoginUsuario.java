@@ -1,7 +1,8 @@
-package com.utl.bli.controller.usuarioDao;
+package com.utl.bli.controller;
 
 import com.utl.bli.controller.*;
 import com.utl.bli.bd.ConexionMySQL;
+import com.utl.bli.controller.usuarioDao.UsuarioDao;
 import com.utl.bli.model.Usuario;
 import java.sql.Connection;
 import java.sql.PreparedStatement;

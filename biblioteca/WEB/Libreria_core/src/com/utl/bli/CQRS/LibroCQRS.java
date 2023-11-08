@@ -13,10 +13,14 @@ public class LibroCQRS {
         Libro li = new Libro();        
         LibroDao libDao = new LibroDao();   
         
-        l.setEstatus(true);     
-          
-        li = libDao.insert(l);
+        l.setEstatus(true);   
         
+        if(l.getTitulo() != null){
+            li = libDao.insert(l);
+        }
+        else {
+             throw new Exception(" No se inserto el libro correctamente");
+        }
         return li;
     }
     
@@ -24,10 +28,14 @@ public class LibroCQRS {
         Libro li = new Libro();        
         LibroDao libDao = new LibroDao();   
         
-        l.setEstatus(true);     
-          
-        li = libDao.update(l);
+        l.setEstatus(true); 
         
+        if(l.getTitulo() != null){
+            li = libDao.update(l);
+        }
+        else {
+             throw new Exception(" No se logro actualizar el libro ");
+        }
         return li;
     }
     
@@ -42,25 +50,6 @@ public class LibroCQRS {
         LibroDao libDao = new LibroDao();
         
         return libDao.getAll(filtro);
-    }
-    
-    public Libro actualizar(Libro l) throws Exception{
-    
-        Libro li = new Libro();        
-        LibroDao libDao = new LibroDao();
-        
-        if (l.getTitulo() != null) {
-            
-            li = (Libro) libDao.buscar(l.getTitulo());
-            
-            if(!li.getLibro().equals(l.getLibro())){                
-                li = libDao.update(l);
-            }            
-            
-        } else {
-          throw new Exception("El libro es incorrecto");
-          }
-        return li;
     }
   
 }
