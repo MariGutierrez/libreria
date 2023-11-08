@@ -78,9 +78,7 @@ public class RESTLibro {
         }
         return Response.status(Response.Status.OK).entity(out).build();
     } 
-    
- 
-    
+     
     @GET
     @Path("getAll")
     @Produces(MediaType.APPLICATION_JSON)

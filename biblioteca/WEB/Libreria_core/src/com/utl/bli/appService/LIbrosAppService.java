@@ -55,6 +55,19 @@ public class LIbrosAppService {
 
         return lib;
     }
+    
+     public List<Libro> buscarLibro2(String filtro) throws Exception {
+        LibroDao libDao = new LibroDao();
+        
+        return libDao.buscar(filtro);
+    }
+    
+    
+    public List<Libro> getAll(String filtro) throws Exception {
+        LibroDao libDao = new LibroDao();
+        
+        return libDao.getAll(filtro);
+    }
 
     public List<LibroPublicViewModel> buscarPorPublic(String nombre_libro) throws Exception {
         LibroDao libroDao = new LibroDao();

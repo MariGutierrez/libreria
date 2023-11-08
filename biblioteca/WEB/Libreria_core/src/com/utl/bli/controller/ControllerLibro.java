@@ -54,16 +54,18 @@ public class ControllerLibro {
     }
         
     public List<Libro> buscar(String filtro) throws Exception {
-        LibroCQRS lib = new LibroCQRS();
-        if (lib == null) {
+        LIbrosAppService appLibro = new LIbrosAppService();
+        List<Libro> li = appLibro.buscarLibro2(filtro);
+        if (li == null) {
             throw new Exception("No se encontraron considencias con: " + filtro);
+        }else{
+            return li;
         }
-        return lib.buscarLibro2(filtro);
     }
     
     public List<Libro> getAll(String filtro) throws Exception {
-        LibroCQRS lib = new LibroCQRS();
-        return lib.getAll(filtro);
+        LIbrosAppService appLibro = new LIbrosAppService();
+        return appLibro.getAll(filtro);
     } 
 }
  

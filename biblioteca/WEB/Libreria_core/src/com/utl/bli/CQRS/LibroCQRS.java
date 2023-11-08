@@ -38,19 +38,6 @@ public class LibroCQRS {
         }
         return li;
     }
-    
-    public List<Libro> buscarLibro2(String filtro) throws Exception {
-        LibroDao libDao = new LibroDao();
-        
-        return libDao.buscar(filtro);
-    }
-    
-    
-    public List<Libro> getAll(String filtro) throws Exception {
-        LibroDao libDao = new LibroDao();
-        
-        return libDao.getAll(filtro);
-    }
   
 }
 
