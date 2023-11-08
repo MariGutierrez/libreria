@@ -3,6 +3,7 @@ let indexAlumnoSeleccionado;
 
 export function inicializar() {
     refrescarTabla();
+    document.getElementById("btnDelete").classList.add("disabled");
 }
 
 export function refrescarTabla() {
@@ -33,6 +34,7 @@ export function refrescarTabla() {
                 loadTable(data);
             });
 }
+
 
 export function buscarAl() {
     let filtro = document.getElementById("txtBusquedaAl").value;
@@ -201,6 +203,8 @@ export function update() {
                 Swal.fire('', "Datos del alumno guardados correctamente", 'success');
                 clean();
                 refrescarTabla();
+                document.getElementById("btnDelete").classList.add("disabled");
+                document.getElementById("btnAdd").classList.remove("disabled");
             });
 }
 
@@ -215,7 +219,7 @@ export function selectAlumno(id) {
             break; // Salir del bucle una vez que se encuentra el elemento
         }
     }
-    
+
     let datos = null;
     let params = null;
     datos = {
@@ -250,6 +254,9 @@ export function selectAlumno(id) {
                 document.getElementById("nombre_usuario").value = data.nombre_usuario;
                 document.getElementById("contrasenia").value = data.contrasenia;
                 document.getElementById("rfc").value = data.rfc;
+                document.getElementById("btnAdd").classList.add("disabled");
+                document.getElementById("btnDelete").classList.remove("disabled");
+
             });
 
 }
@@ -260,4 +267,6 @@ export function clean() {
     document.getElementById("nombre_usuario").value = "";
     document.getElementById("contrasenia").value = "";
     document.getElementById("rfc").value = "";
+    document.getElementById("btnDelete").classList.add("disabled");
+    document.getElementById("btnAdd").classList.remove("disabled");
 }

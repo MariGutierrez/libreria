@@ -74,31 +74,5 @@ public class RESTUsuario {
         return Response.status(Response.Status.OK)
                 .entity(out).build();
     }
-//    @Path("insertar")
-//    @POST
-//    @Produces(MediaType.APPLICATION_JSON)
-//    public Response insertar(@FormParam("datosAlumno") @DefaultValue("") String datosAlumno) {
-//
-//        String out = null;
-//        Gson gson = new Gson();
-//        Alumno al = null;
-//        usuarioCQRS us = new usuarioCQRS();
-//
-//        try {
-//            al = gson.fromJson(datosAlumno, Alumno.class);
-//               us.insertarCliente(al);
-//
-//            
-//            out = gson.toJson(al);
-//
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//            out = """
-//                  {"result":"error"}
-//                  """;
-//        }
-//
-//        return Response.status(Response.Status.OK).entity(out).build();
-//
-//    }
+
 }
